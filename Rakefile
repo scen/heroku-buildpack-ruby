@@ -21,7 +21,7 @@ def vendor_plugin(git_url, branch = nil)
     Dir.chdir(tmpdir) do
       sh "git clone #{git_url} ."
       sh "git checkout origin/#{branch}" if branch
-      FileUtils.rm_rf("#{name}/.git")
+      # FileUtils.rm_rf("#{name}/.git")
       sh("tar czvf #{tmpdir}/#{name}.tgz *")
       s3_upload(tmpdir, name)
     end

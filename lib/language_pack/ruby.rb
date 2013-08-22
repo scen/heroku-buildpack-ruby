@@ -87,12 +87,11 @@ class LanguagePack::Ruby < LanguagePack::Base
     puts "COMMIT_SHA: " + ENV['COMMIT_SHA']
     puts "COMMIT_MSG: " + ENV['COMMIT_MSG']
     puts "COMMIT_TIME: " + ENV['COMMIT_TIME']
+    error "nil" if !ENV['COMMIT_SHA']
   end
 
   def compile
     instrument 'ruby.compile' do
-      puts Dir.pwd
-      update_commit_info
       Dir.chdir(build_path)
       remove_vendor_bundle
       install_ruby
@@ -102,6 +101,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       allow_git do
         install_language_pack_gems
         build_bundler
+        update_commit_info
         create_database_yml
         install_binaries
         run_assets_precompile_rake_task
