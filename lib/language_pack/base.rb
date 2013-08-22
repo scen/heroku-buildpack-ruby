@@ -7,7 +7,6 @@ require "language_pack/cache"
 require "language_pack/metadata"
 require "language_pack/fetcher"
 require "language_pack/instrument"
-require 'git'
 
 Encoding.default_external = Encoding::UTF_8 if defined?(Encoding)
 

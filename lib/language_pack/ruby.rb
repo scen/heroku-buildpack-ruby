@@ -4,7 +4,6 @@ require "rubygems"
 require "language_pack"
 require "language_pack/base"
 require "language_pack/bundler_lockfile"
-require 'git'
 
 # base Ruby Language Pack. This is for any base ruby app.
 class LanguagePack::Ruby < LanguagePack::Base
@@ -81,6 +80,15 @@ class LanguagePack::Ruby < LanguagePack::Base
     end
   end
 
+  def update_commit_info
+    ENV['COMMIT_SHA'] = `git rev-parse HEAD`
+    ENV['COMMIT_MSG'] = `git log -1 --pretty=format:"%s"`
+    ENV['COMMIT_TIME'] = `git log -1 --pretty=format:"%ad"`
+    puts "COMMIT_SHA: " + ENV['COMMIT_SHA']
+    puts "COMMIT_MSG: " + ENV['COMMIT_MSG']
+    puts "COMMIT_TIME: " + ENV['COMMIT_TIME']
+  end
+
   def compile
     instrument 'ruby.compile' do
       Dir.chdir(build_path)
@@ -95,6 +103,7 @@ class LanguagePack::Ruby < LanguagePack::Base
         create_database_yml
         install_binaries
         run_assets_precompile_rake_task
+        update_commit_info
       end
       super
     end

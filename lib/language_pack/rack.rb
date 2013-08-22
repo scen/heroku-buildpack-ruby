@@ -1,6 +1,5 @@
 require "language_pack"
 require "language_pack/ruby"
-require 'git'
 
 # Rack Language Pack. This is for any non-Rails Rack apps like Sinatra.
 class LanguagePack::Rack < LanguagePack::Ruby
