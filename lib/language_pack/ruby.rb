@@ -81,9 +81,9 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
 
   def update_commit_info
-    ENV['COMMIT_SHA'] = `git --git-dir=#{ENV['GIT_DIR']} rev-parse HEAD`
-    ENV['COMMIT_MSG'] = `git --git-dir=#{ENV['GIT_DIR']} log -1 --pretty=format:"%s"`
-    ENV['COMMIT_TIME'] = `git --git-dir=#{ENV['GIT_DIR']} log -1 --pretty=format:"%ad"`
+    ENV['COMMIT_SHA'] = `git rev-parse HEAD`
+    ENV['COMMIT_MSG'] = `git log -1 --pretty=format:"%s"`
+    ENV['COMMIT_TIME'] = `git log -1 --pretty=format:"%ad"`
     puts "COMMIT_SHA: " + ENV['COMMIT_SHA']
     puts "COMMIT_MSG: " + ENV['COMMIT_MSG']
     puts "COMMIT_TIME: " + ENV['COMMIT_TIME']
@@ -91,13 +91,13 @@ class LanguagePack::Ruby < LanguagePack::Base
 
   def compile
     instrument 'ruby.compile' do
+      update_commit_info
       Dir.chdir(build_path)
       remove_vendor_bundle
       install_ruby
       install_jvm
       setup_language_pack_environment
       setup_profiled
-      update_commit_info
       allow_git do
         install_language_pack_gems
         build_bundler
