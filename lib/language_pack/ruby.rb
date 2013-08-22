@@ -97,13 +97,13 @@ class LanguagePack::Ruby < LanguagePack::Base
       install_jvm
       setup_language_pack_environment
       setup_profiled
+      update_commit_info
       allow_git do
         install_language_pack_gems
         build_bundler
         create_database_yml
         install_binaries
         run_assets_precompile_rake_task
-        update_commit_info
       end
       super
     end
