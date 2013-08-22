@@ -81,13 +81,14 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
 
   def update_commit_info
+    puts Dir.entries(Dir.pwd)
     ENV['COMMIT_SHA'] = `git rev-parse HEAD`
     ENV['COMMIT_MSG'] = `git log -1 --pretty=format:"%s"`
     ENV['COMMIT_TIME'] = `git log -1 --pretty=format:"%ad"`
     puts "COMMIT_SHA: " + ENV['COMMIT_SHA']
     puts "COMMIT_MSG: " + ENV['COMMIT_MSG']
     puts "COMMIT_TIME: " + ENV['COMMIT_TIME']
-    error "nil" if !ENV['COMMIT_SHA']
+    error "nil" if !ENV['COMMIT_SHA'] or ENV['COMMIT_SHA'].chomp == ''
   end
 
   def compile
