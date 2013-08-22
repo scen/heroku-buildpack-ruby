@@ -81,7 +81,7 @@ class LanguagePack::Ruby < LanguagePack::Base
   end
 
   def update_commit_info
-    puts Dir.entries(Dir.pwd)
+    print Dir.entries(Dir.pwd)
     ENV['COMMIT_SHA'] = `git rev-parse HEAD`
     ENV['COMMIT_MSG'] = `git log -1 --pretty=format:"%s"`
     ENV['COMMIT_TIME'] = `git log -1 --pretty=format:"%ad"`
