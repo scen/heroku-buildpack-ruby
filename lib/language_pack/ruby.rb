@@ -91,6 +91,7 @@ class LanguagePack::Ruby < LanguagePack::Base
 
   def compile
     instrument 'ruby.compile' do
+      puts Dir.pwd
       update_commit_info
       Dir.chdir(build_path)
       remove_vendor_bundle
