@@ -1,6 +1,7 @@
 require "fileutils"
 require "tmpdir"
 require 'hatchet/tasks'
+require 'git'
 
 S3_BUCKET_NAME  = "heroku-buildpack-ruby"
 VENDOR_URL      = "https://s3.amazonaws.com/#{S3_BUCKET_NAME}"
